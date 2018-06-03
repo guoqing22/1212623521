@@ -106,6 +106,15 @@ public class StudentController {
         return myZtList;
     }
 
+    @ApiOperation(value="获取上课时间分布接口", notes="根据日期区间")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "startDate", value = "开始日期", example = "2018-06-01",required = true, dataType = "String"),
+            @ApiImplicitParam(name = "endDate", value = "结束日期", example = "2018-06-01", required = true, dataType = "String")
+    })
+    @ApiResponses({
+            @ApiResponse(code=400,message="请求参数没填好"),
+            @ApiResponse(code=404,message="请求路径没有或页面跳转路径不对")
+    })
     @RequestMapping(value="/getClassTime",method = RequestMethod.GET)
     @ResponseBody
     public List<MyLlt> getClassTime(@Param("start_date") String startDate, @Param("end_date") String endDate) throws ParseException {

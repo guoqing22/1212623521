@@ -221,7 +221,7 @@
   <select id="nianlingdengji" resultMap="MyZtResultMap">
     select last_level dengji,student_age age,count(*) shuLiang from student where first_paid_date_time between #{start_date,jdbcType=TIMESTAMP} and #{end_date,jdbcType=TIMESTAMP} group by last_level order by count(*) desc;
   </select>
-  <select id="shangkeshijian" resultMap="MyZtResultMap">
+  <select id="shangkeshijian" resultMap="MyLltResultMap">
     select hour(student_date) nxd,count(*) shuLiang from student_event  where student_date between #{start_date,jdbcType=TIMESTAMP} and #{end_date,jdbcType=TIMESTAMP} group by hour(student_date)
   </select>
 
