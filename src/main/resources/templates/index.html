@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form  method="post" action="@{/login}"> >
+    <input type="text" id="username" name="username" />
+    <input type="password" id="password" name="password" />
+    <button type="submit" id="login">登录</button>
+</form>
+
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script>
+    $("#login").click(function () {
+        $.ajax({
+            url: "localhost/getrole",
+            type: "post",
+            dataType: "json",
+            contentType: "application/json",
+            data: JSON.stringify({
+                "username": $("#username").val(),
+                "password": $("#password").val()
+            }),
+            success: function (msg) {
+                if (msg.successmsg != null) {
+                    window.location.href = "<%= basePath%>bill/index";
+                    /*alert(msg.successmsg)*/
+                }
+                else if (msg.errormsg != null) {
+                    $.Toast("失败", msg.errormsg, "error", {
+                        has_icon: true,
+                        has_close_btn: true,
+                        fullscreen: false,
+                        timeout: 0,
+                        sticky: false,
+                        has_progress: true,
+                        rtl: false
+                    });
+                }
+            },
+            error: function (msg) {
+                $.Toast("请求出错", "错误代码：" + msg.stack(), "error", {
+                    has_icon: true,
+                    has_close_btn: true,
+                    fullscreen: false,
+                    timeout: 0,
+                    sticky: false,
+                    has_progress: true,
+                    rtl: false
+                });
+            }
+        });
+    })
+</script>
+</body>
+</html>

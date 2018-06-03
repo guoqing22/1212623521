@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration PUBLIC
+        "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<generatorConfiguration>
+
+    <!-- 本地数据库驱动程序jar包的全路径 -->
+    <classPathEntry location="E:/eclipse-workspace/iframe/src/main/resources/mysql-connector-java-5.1.44.jar"/>
+    <!--
+        context:生成一组对象的环境
+        id:必选，上下文id，用于在生成错误时提示
+        defaultModelType:指定生成对象的样式
+            1，conditional：类似hierarchical；
+            2，flat：所有内容（主键，blob）等全部生成在一个对象中；
+            3，hierarchical：主键生成一个XXKey对象(key class)，Blob等单独生成一个对象，其他简单属性在一个对象中(record class)
+        targetRuntime:
+            1，MyBatis3：默认的值，生成基于MyBatis3.x以上版本的内容，包括XXXBySample；
+            2，MyBatis3Simple：类似MyBatis3，只是不生成XXXBySample；
+        introspectedColumnImpl：类全限定名，用于扩展MBG
+    -->
+    <context id="context" targetRuntime="MyBatis3">
+
+        <!-- 生成的Java文件的编码 -->
+        <property name="javaFileEncoding" value="UTF-8"/>
+
+        <!-- 格式化java代码 -->
+        <property name="javaFormatter" value="org.mybatis.generator.api.dom.DefaultJavaFormatter"/>
+
+        <!-- 格式化XML代码 -->
+        <property name="xmlFormatter" value="org.mybatis.generator.api.dom.DefaultXmlFormatter"/>
+
+        <commentGenerator>
+            <property name="suppressAllComments" value="false"/>
+            <property name="suppressDate" value="true"/>
+        </commentGenerator>
+
+        <!-- 数据库的相关配置 -->
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://localhost:3306/shuangyan?useUnicode=true&amp;characterEncoding=UTF-8"
+                        userId="root"
+                        password="peYSq9lRKZZ@v907"/>
+
+        <!-- java类型处理器
+               用于处理DB中的类型到Java中的类型，默认使用JavaTypeResolverDefaultImpl；
+               注意一点，默认会先尝试使用Integer，Long，Short等来对应DECIMAL和 NUMERIC数据类型；
+         -->
+        <javaTypeResolver>
+            <!--
+            true：使用BigDecimal对应DECIMAL和 NUMERIC数据类型
+            false：默认,
+                scale>0;length>18：使用BigDecimal;
+                scale=0;length[10,18]：使用Long；
+                scale=0;length[5,9]：使用Integer；
+                scale=0;length<5：使用Short；
+               -->
+            <property name="forceBigDecimals" value="false"/>
+        </javaTypeResolver>
+
+        <!-- java模型创建器，是必须要的元素
+                负责：1，key类（见context的defaultModelType）；2，java类；3，查询类
+                targetPackage：生成的类要放的包，真实的包受enableSubPackages属性控制；
+                targetProject：目标项目，指定一个存在的目录下，生成的内容会放到指定目录中，如果目录不存在，MBG不会自动建目录
+        -->
+        <javaModelGenerator targetPackage="xyz.welab.iframe.pojo" targetProject="src/main/java">
+            <!--  for MyBatis3/MyBatis3Simple
+                    自动为每一个生成的类创建一个构造方法，构造方法包含了所有的field；而不是使用setter；
+            -->
+            <property name="enableSubPackages" value="false"/>
+            <!-- 在targetPackage的基础上，根据数据库的schema再生成一层package，最终生成的类放在这个package下，默认为false -->
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+
+        <!-- 生成SQL map的XML文件生成器 -->
+        <sqlMapGenerator targetPackage="mapper" targetProject="src/main/java">
+            <property name="enableSubPackages" value="false"/>
+        </sqlMapGenerator>
+
+        <!-- 生成mapper接口的文件生成器-->
+        <javaClientGenerator targetPackage="xyz.welab.iframe.model" targetProject="src/main/java" type="XMLMAPPER">
+            <property name="enableSubPackages" value="false"/>
+        </javaClientGenerator>
+
+        <!-- 相关表的配置 -->
+        <table tableName="parent"  enableCountByExample="false"
+               enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"
+               delimitIdentifiers="false" />
+        <table tableName="parent_event"  enableCountByExample="false"
+               enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"
+               delimitIdentifiers="false" />
+        <table tableName="staff"  enableCountByExample="false"
+               enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"
+               delimitIdentifiers="false" />
+        <table tableName="student"  enableCountByExample="false"
+               enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"
+               delimitIdentifiers="false" />
+        <table tableName="student_event"  enableCountByExample="false"
+               enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"
+               delimitIdentifiers="false" />
+        <table tableName="teacher"  enableCountByExample="false"
+               enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"
+               delimitIdentifiers="false" />
+    </context>
+</generatorConfiguration>
